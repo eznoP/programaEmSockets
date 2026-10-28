@@ -13,7 +13,7 @@ Um servidor guarda uma lista de tarefas compartilhada. Vários clientes podem ad
 ## Arquitetura
 
 ```
- +-----------+      TCP (127.0.0.1:5000)      +------------------+
+ +-----------+      TCP (127.0.0.1:5000)       +------------------+
  | cliente.py| <-----------------------------> |  servidor.py     |
  | (processo)|   requisições / respostas       | (processo)       |
  +-----------+                                 | 1 thread/cliente |
