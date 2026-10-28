@@ -65,6 +65,16 @@ def processar(linha, tarefas):
     return [f"ERRO {ERRO_REQUISICAO} requisição inválida: {linha.strip()!r}"]
 
 
+def mostrar_recebimento(endereco, linha):
+    """Mostra na tela a mensagem que o cliente enviou ao servidor.
+
+    `linha` já vem com o "\\n" final, então os bytes contados aqui são
+    exatamente o que aparece na coluna Length do Wireshark.
+    """
+    dados = linha.encode("utf-8")
+    print(f"[{endereco[0]}:{endereco[1]} -> servidor] {linha.rstrip(chr(10))}  ({len(dados)} bytes)")
+
+
 def enviar(f, linhas):
     for linha in linhas:
         f.write(linha + "\n")
@@ -84,6 +94,7 @@ def atender(conn, endereco, tarefas):
                     if len(linha) > MAX_LINHA:
                         enviar(f, [f"ERRO {ERRO_REQUISICAO} linha maior que {MAX_LINHA} bytes"])
                     break
+                mostrar_recebimento(endereco, linha)
                 enviar(f, processar(linha, tarefas))
                 if linha.strip().upper() == "SAIR":
                     break

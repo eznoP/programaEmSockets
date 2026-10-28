@@ -5,7 +5,7 @@ import sys
 
 from protocolo import HOST, PORTA, MAX_LINHA
 
-MENU = "Comandos: add <texto> | list | done <id> | del <id> | sair"
+MENU = "\nComandos: add <texto> | list | done <id> | del <id> | sair"
 
 
 def traduzir(entrada):
